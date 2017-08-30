@@ -3,28 +3,7 @@
 ''' You can adjust threshold below to better results. Try it with different values a few times'''
 import cv2
 import sys
-import cvlib
 
-
-def _init_runner():
-    runner = cvlib.Runner()
-
-    thresholding = cvlib.functions.Thresholding()
-    thresholding.values = {}
-    thresholding.values['maxvalue'] = 255
-    thresholding.values['threshold'] = 98
-    thresholding.values['combinedWithOTSU'] = False
-    thresholding.values['thresholdMode'] = 'THRESH_BINARY'
-    runner.add(thresholding, name='Thresholding')
-
-    return runner
-
-
-def apply(im, **kwargs):
-    out_im, allinfo = runner.run(im, **kwargs)
-    return (out_im, allinfo)
-
-runner = _init_runner()
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
@@ -59,8 +38,8 @@ if __name__ == "__main__":
         out_im_path = im_name + "-out." + im_filetype
 
     if im_filetype in IMAGE_WHITELIST:
-        im = cv2.imread(in_im)
-        out_im, allinfo = runner.run(im)
+        im = cv2.imread(in_im, 0)
+        ret, out_im = cv2.threshold(im, 98, 255, cv2.THRESH_BINARY)
         cv2.imwrite(out_im_path, out_im)
 
     elif im_filetype in VIDEO_WHITELIST:

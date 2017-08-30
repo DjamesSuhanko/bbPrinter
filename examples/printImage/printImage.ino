@@ -60,7 +60,7 @@ The circuit:
 
   Printer project:
     If you need the printer project, just read this article about:
-    LINK PARA O ARTIGO DA IMPRESSORA
+     http://www.dobitaobyte.com.br/impressora-com-arduino-opencv/
 
 
 Created 25 Jul 2017

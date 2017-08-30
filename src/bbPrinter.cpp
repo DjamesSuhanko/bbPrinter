@@ -27,11 +27,9 @@ void Printer::alignColumn()
 void Printer::alignLine()
 {
     //TODO: calculte steps to move based in ppl*steps
-    this->moveLine(10000, 0, BACKWARD, 10);
-    delay(500);
     this->moveLine(10000, 0, FORWARD, 10);
     delay(500);
-    this->moveLine(this->steps_line, 0, BACKWARD, 100);
+    this->moveLine(10000, 0, BACKWARD, 10);
 }
 
 void Printer::isrPinsLrBf(byte p_left, byte p_right, byte p_backward, byte p_forward)
@@ -214,7 +212,7 @@ void Printer::moveColumn(int pixelsToMove, int downTime_ms, byte directionFor, i
 
         //do one step...
         digitalWrite(this->pin_step_column,HIGH);
-        delay(10);
+        delay(5);
         digitalWrite(this->pin_step_column,LOW);
 
         /* While setupDone is not true, the steps_column will be increased. No matter if right corner wasn't
@@ -226,12 +224,11 @@ void Printer::moveColumn(int pixelsToMove, int downTime_ms, byte directionFor, i
 
         //...and disable the locking of motor for a short time. This way the motor will gets not very hot
         digitalWrite(this->pin_enable_column,DISABLE);
-        delay(10);
+        delay(1);
         digitalWrite(this->pin_enable_column,ENABLE);
     }
     digitalWrite(this->pin_enable_column,DISABLE); //unlock tracking (disable tracking)
     digitalWrite(this->pin_sleep_column,SLEEP);  //put EasyDriver to sleep. The motor gets really cold this way
-    delay(5);
 }
 
 void Printer::moveLine(int numberOfLinesToMove, int timeToWaiting, byte directionFor,int stepsPerPixel)
@@ -289,7 +286,7 @@ void Printer::moveLine(int numberOfLinesToMove, int timeToWaiting, byte directio
 
         //do one step...
         digitalWrite(this->pin_step_line,HIGH);
-        delay(10);
+        delay(5);
         digitalWrite(this->pin_step_line,LOW);
 
         /* While setupDone is not true, the steps_line will be increased. No matter if forward corner wasn't
